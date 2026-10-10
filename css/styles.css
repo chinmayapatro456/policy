@@ -180,6 +180,24 @@ h1, h2, h3, h4 { text-wrap: balance; }
 .nav-toggle[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
 .nav-toggle[aria-expanded="true"] span:nth-child(3) { transform: translateY(-6px) rotate(-45deg); }
 
+.brand-logo {
+  display: block;
+  flex: none;
+  width: 44px;
+  height: 44px;
+  object-fit: contain;
+  padding: 5px;
+  background: var(--paper-bright);
+  border: 1px solid var(--line);
+  border-radius: var(--r-sm);
+  box-shadow: var(--shadow-3d);
+  transform: perspective(500px) rotateY(-14deg);
+  transition: transform .6s var(--ease-out);
+}
+.brand:hover .brand-logo {
+  transform: perspective(500px) rotateY(10deg) translateZ(8px);
+}
+
 /* ---------- Hero ---------- */
 .hero { padding: 76px 0 0; position: relative; }
 
