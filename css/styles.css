@@ -580,3 +580,48 @@ kbd {
   }
   .section, .topic-group, .article-card { opacity: 1 !important; transform: none !important; }
 }
+
+/* Elegant Policy Corner logo */
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-logo {
+  width: 54px;
+  height: 54px;
+  object-fit: contain;
+  flex-shrink: 0;
+  transition: transform 0.3s ease;
+}
+
+.brand:hover .brand-logo {
+  transform: scale(1.05);
+}
+
+.brand-copy {
+  display: flex;
+  flex-direction: column;
+  line-height: 1.25;
+}
+
+.brand-copy strong {
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.brand-copy em {
+  font-size: 0.8rem;
+  font-style: normal;
+  color: #45966a;
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 480px) {
+  .brand-logo {
+    width: 44px;
+    height: 44px;
+  }
+}
