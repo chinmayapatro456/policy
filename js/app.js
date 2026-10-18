@@ -208,7 +208,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- Animated stat counters ---------------- */
 
-  const counters = document.querySelectorAll('[data-count]');
+ const essayStat = document.querySelector('.hero-stats [data-count]');
+if (essayStat) essayStat.dataset.count = articles.length;
+const counters = document.querySelectorAll('[data-count]');
   const counterObserver = new IntersectionObserver((entries) => {
     entries.forEach(entry => {
       if (!entry.isIntersecting) return;
