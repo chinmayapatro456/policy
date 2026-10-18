@@ -47,7 +47,7 @@ document.addEventListener('DOMContentLoaded', () => {
     return `
       <article class="article-card" style="--delay:${Math.min(indexInTopic * 70, 420)}ms">
         <div class="article-index">${String(indexInTopic + 1).padStart(2, '0')}</div>
-        <div class="article-card-main">
+       <div class="article-card-main${item.image ? ' has-thumb' : ''}">
           ${item.image ? `<img class="article-thumb" src="${escapeAttr(item.image)}" alt="${escapeAttr(item.imageAlt)}" loading="lazy">` : ''}
           <div class="meta-header">
             <span class="meta-topic">${item.topicLabel}</span>
@@ -159,7 +159,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- 3D tilt on cards + photo ---------------- */
 
-  const supportsHover = window.matchMedia('(hover: hover)').matches;
+  const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
   const reduceMotion  = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function tiltHandler(el, maxDeg, inner) {
@@ -202,9 +202,12 @@ document.addEventListener('DOMContentLoaded', () => {
         revealObserver.unobserve(entry.target);
       }
     });
-  }, { threshold: 0.06, rootMargin: '0px 0px -40px 0px' });
+}, { threshold: 0, rootMargin: '0px 0px -40px 0px' });
 
   document.querySelectorAll('.section, .topic-group').forEach(el => revealObserver.observe(el));
+  if (!('IntersectionObserver' in window)) {
+  document.querySelectorAll('.section, .topic-group').forEach(el => el.classList.add('is-visible'));
+}
 
   /* ---------------- Animated stat counters ---------------- */
 
