@@ -114,10 +114,15 @@ document.addEventListener('DOMContentLoaded', () => {
 
   /* ---------------- Search ---------------- */
 
+   let searchTimer;
   if (searchInput) {
     searchInput.addEventListener('input', (e) => {
-      searchQuery = e.target.value.toLowerCase().trim();
-      renderArticles();
+      clearTimeout(searchTimer);
+      const value = e.target.value;
+      searchTimer = setTimeout(() => {
+        searchQuery = value.toLowerCase().trim();
+        renderArticles();
+      }, 150);
     });
   }
 
@@ -150,10 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = topic === 'all'
         ? document.getElementById('topics')
         : document.getElementById(`topic-${topic}`);
-     if (target) {
-  const y = target.getBoundingClientRect().top + window.scrollY - 90;
-  window.scrollTo({ top: y, behavior: 'smooth' });
-}
+    if (target) target.scrollIntoView({ behavior: 'smooth', block: 'start' });
     });
   });
 
