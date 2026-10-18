@@ -803,3 +803,36 @@ h1, h2, h3, h4 { text-wrap: balance; }
   }
   .section, .topic-group, .article-card { opacity: 1 !important; transform: none !important; }
 }
+/* ===== Mobile fixes ===== */
+.brand-logo { width: 44px; height: 44px; object-fit: contain; flex: none; }
+.hero { overflow-x: clip; }
+
+@media (hover: none) { kbd { display: none; } }
+
+@media (max-width: 720px) {
+  /* Mobile menu */
+  .nav-links {
+    position: absolute; top: 100%; left: 0; right: 0;
+    flex-direction: column; gap: 0; padding: 14px 22px 22px;
+    background: rgba(245,244,236,.98); border-bottom: 1px solid var(--line);
+    opacity: 0; visibility: hidden; pointer-events: none; transform: translateY(-8px);
+    transition: opacity .3s var(--ease), transform .3s var(--ease-out), visibility 0s .3s;
+  }
+  .nav-links.open {
+    opacity: 1; visibility: visible; pointer-events: auto; transform: none;
+    transition-delay: 0s;
+  }
+  /* Article page has no hamburger: keep the link visible */
+  .article-masthead .nav-links {
+    position: static; flex-direction: row; padding: 0; background: none; border: 0;
+    opacity: 1; visibility: visible; pointer-events: auto; transform: none;
+  }
+
+  /* Less lag on phones */
+  .ambient-blob { animation: none; filter: blur(50px); }
+  .hero-art::before { animation: none; }
+  .article-grid { perspective: none; }
+  .article-card, .article-card-main { transform-style: flat; }
+  .article-card::before { display: none; }
+  .article-index, .article-thumb, .article-card:hover .article-thumb { transform: none; }
+}
