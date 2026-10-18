@@ -398,11 +398,12 @@ h1, h2, h3, h4 { text-wrap: balance; }
 .section-heading span { color: var(--green); font-style: italic; }
 .section-lede { color: var(--muted); max-width: 62ch; margin-bottom: 34px; }
 
-.section, .topic-group {
+.js .section:not(.topics-section),
+.js .topic-group {
   opacity: 0; transform: translateY(40px);
   transition: opacity .9s var(--ease-out), transform .9s var(--ease-out);
 }
-.section.is-visible, .topic-group.is-visible { opacity: 1; transform: none; }
+.js .section.is-visible, .js .topic-group.is-visible { opacity: 1; transform: none; }
 
 /* ---------- About ---------- */
 .about-section { background: linear-gradient(180deg, transparent, rgba(255,255,255,.5) 40%, transparent); }
@@ -573,12 +574,12 @@ h1, h2, h3, h4 { text-wrap: balance; }
   flex: 1; min-width: 0; display: grid;
   transform: translateZ(16px); transform-style: preserve-3d;
 }
-.article-card-main:has(.article-thumb) {
+.article-card-main.has-thumb {
   grid-template-columns: minmax(0, .88fr) minmax(0, 1.12fr);
   grid-template-rows: auto auto 1fr auto;
   column-gap: 26px;
 }
-.article-card-main:has(.article-thumb) > :not(.article-thumb) { grid-column: 2; }
+.article-card-main.has-thumb > :not(.article-thumb) { grid-column: 2; }
 
 .article-thumb {
   grid-column: 1; grid-row: 1 / span 4; align-self: stretch;
@@ -788,8 +789,8 @@ h1, h2, h3, h4 { text-wrap: balance; }
   .hero-stats > div { padding-right: 20px; margin-right: 20px; }
   .hero-stats dt { font-size: 1.7rem; }
   .article-grid { grid-template-columns: 1fr; }
-  .article-card-main:has(.article-thumb) { grid-template-columns: 1fr; grid-template-rows: none; }
-  .article-card-main:has(.article-thumb) > :not(.article-thumb) { grid-column: 1; }
+  .article-card-main.has-thumb { grid-template-columns: 1fr; grid-template-rows: none; }
+  .article-card-main.has-thumb > :not(.article-thumb) { grid-column: 1; }
   .article-thumb { grid-row: auto; height: 190px; min-height: 0; margin-bottom: 14px; }
   .topic-group-title { font-size: 1.45rem; }
   .footer-grid { grid-template-columns: 1fr; }
@@ -835,4 +836,50 @@ h1, h2, h3, h4 { text-wrap: balance; }
   .article-card, .article-card-main { transform-style: flat; }
   .article-card::before { display: none; }
   .article-index, .article-thumb, .article-card:hover .article-thumb { transform: none; }
+}
+
+/* ===== Android / touch fixes ===== */
+[hidden] { display: none !important; }
+.hero { overflow-x: clip; }
+
+/* fixes radar jumping off-centre when animation stops */
+.hero-art::before { transform: translate(-50%, -50%); }
+
+/* blur is redundant: these are already soft radial gradients */
+.ambient-blob, .orb-glow { filter: none; }
+
+@media (hover: none), (pointer: coarse), (max-width: 720px) {
+  /* cheaper background */
+  body::before { display: none; }
+  .ambient-blob { animation: none; }
+  .blob-3 { display: none; }
+  .site-nav, .article-masthead {
+    backdrop-filter: none; -webkit-backdrop-filter: none;
+    background: rgba(245,244,236,.97);
+  }
+  .float-card { backdrop-filter: none; -webkit-backdrop-filter: none; }
+
+  /* lighter globe: keep the rotating meridians, drop the rest */
+  .hero-art::before { display: none; }
+  .orb-stage { animation: none; transform: rotateZ(-23deg) rotateX(-10deg); }
+
+  /* flatten the 24 cards: no 3D layers */
+  .article-grid { perspective: none; }
+  .article-card {
+    transform-style: flat;
+    animation: rise .6s var(--ease-out) backwards;
+    animation-delay: var(--delay, 0ms);
+    box-shadow: inset 0 3px 0 var(--green), 6px 6px 0 var(--green-soft), var(--shadow-sm);
+  }
+  .article-card::before, .article-card::after { display: none; }
+  .article-card-main, .article-index, .article-thumb {
+    transform: none; transform-style: flat;
+  }
+  .article-card:hover .article-thumb { transform: none; filter: none; }
+  .photo-inner { transform-style: flat; }
+}
+
+/* no sticky hover states after a tap */
+@media (hover: none) {
+  .about-pillars li:hover, .topic-btn:hover, .btn:hover, .related-item:hover { transform: none; }
 }
