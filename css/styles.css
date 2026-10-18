@@ -883,3 +883,51 @@ h1, h2, h3, h4 { text-wrap: balance; }
 @media (hover: none) {
   .about-pillars li:hover, .topic-btn:hover, .btn:hover, .related-item:hover { transform: none; }
 }
+
+/* ===== Design standards (palette unchanged) ===== */
+:root {
+  --muted-light: #657065;  /* was #8b9389, too faint for text. Now 4.7:1 */
+  --gold-text:   #7a5c10;  /* darker gold for TEXT on light backgrounds. 5.7:1 */
+  --track-label: .14em;    /* tracking for buttons, tabs, chips */
+  --track-wide:  .2em;     /* tracking for kickers and section labels */
+}
+
+/* 1. Gold text on light backgrounds (gold lines and bars stay bright) */
+.section-kicker, .brand-copy em, .pillar-num { color: var(--gold-text); }
+
+/* 2. Radius scale: 4px small controls, 8px inputs and panels, 14px large frames */
+.btn, .float-card, .essay-count, .meta-topic, .topic-btn { border-radius: var(--r-sm); }
+.search-wrap { border-radius: var(--r-md); }
+
+/* 3. Label typography: two tracking values, two sizes */
+.eyebrow, .section-kicker, .topic-label, .related h3 { letter-spacing: var(--track-wide); }
+.btn, .nav-links a, .topic-btn, .read-link, .meta-topic, .essay-count,
+.float-card, .hero-stats dd, .pillar-num,
+.footer-col:not(.footer-brand) strong { letter-spacing: var(--track-label); }
+
+.eyebrow, .section-kicker, .btn, .nav-links a, .topic-btn, .read-link,
+.float-card, .essay-count, .related h3,
+.footer-col:not(.footer-brand) strong { font-size: .72rem; }
+.meta-header, .topic-label, .hero-stats dd, .pillar-num, .brand-copy em { font-size: .68rem; }
+
+/* 4. Essay body: links, subheadings, lists */
+.article-body a {
+  color: var(--green);
+  text-decoration: underline;
+  text-decoration-color: var(--gold);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 3px;
+}
+.article-body a:hover { color: var(--green-dark); }
+.article-body h3 {
+  font-family: var(--font-sans); font-size: .95rem; font-weight: 700;
+  color: var(--green-dark); margin: 36px 0 12px;
+}
+.article-body ul, .article-body ol { margin: 0 0 26px 1.4em; padding-left: .4em; }
+.article-body li { margin-bottom: 8px; }
+.article-body strong { color: var(--ink); font-weight: 600; }
+.article-body blockquote p { margin-bottom: 0; }
+
+/* 5. Images: one shape for hero images, one colour treatment for all photos */
+.article-hero-image { aspect-ratio: 16 / 9; object-fit: cover; }
+.article-thumb, .article-hero-image { filter: saturate(.85) contrast(1.02); }
