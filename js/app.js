@@ -150,7 +150,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const target = topic === 'all'
         ? document.getElementById('topics')
         : document.getElementById(`topic-${topic}`);
-      if (target) window.scrollTo({ top: target.offsetTop - 90, behavior: 'smooth' });
+     if (target) {
+  const y = target.getBoundingClientRect().top + window.scrollY - 90;
+  window.scrollTo({ top: y, behavior: 'smooth' });
+}
     });
   });
 
